@@ -1,4 +1,4 @@
-# changelog-gen
+# Changelog-Gen
 
 [![License](https://img.shields.io/github/license/Axszv/changelog-gen)](https://github.com/Axszv/changelog-gen/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/Axszv/changelog-gen?style=social)](https://github.com/Axszv/changelog-gen/stargazers)
@@ -6,7 +6,6 @@
 
 > A simple tool to automatically generate changelogs from conventional 
 commits.
-# Changelog-Gen
 
 A tool to **automatically generate** `CHANGELOG.md` and GitHub Release 
 notes by parsing Conventional Commits or PR titles, producing a 
