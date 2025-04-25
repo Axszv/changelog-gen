@@ -1,0 +1,43 @@
+name: Generate & Publish Changelog
+
+# 当有新 tag 被 push 时触发
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  changelog:
+    name: Generate Changelog and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. 设置 Python 环境
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # 3. 安装项目依赖
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4. 生成 CHANGELOG.md
+      - name: Generate changelog
+        run: |
+          changelog-gen generate --since-tag ${{ github.ref_name }}
+        env:
+          # 这里 github.ref_name 即 tag 名称（如 v1.0.0）
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 5. 创建或更新 GitHub Release
+      - name: Create/Update Release
+        run: |
+          changelog-gen release --tag ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
